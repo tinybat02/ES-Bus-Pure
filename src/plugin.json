@@ -1,0 +1,21 @@
+{
+  "type": "panel",
+  "name": "ES Bus Pure",
+  "id": "id-es-bus-pure-line",
+  "dataFormats": ["table"],
+  "info": {
+    "description": "ES Bus Pure",
+    "author": {
+      "name": "Nam Le"
+    },
+    "keywords": [],
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+
+  "dependencies": {
+    "grafanaVersion": "6.3.x",
+    "plugins": []
+  }
+}
