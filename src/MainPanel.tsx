@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { PanelProps /* , Vector as VectorData */ } from '@grafana/data';
+import { PanelProps } from '@grafana/data';
 import { PanelOptions, Buffer } from 'types';
 import { Map, View } from 'ol';
 import XYZ from 'ol/source/XYZ';
@@ -8,9 +8,11 @@ import { fromLonLat } from 'ol/proj';
 import { defaults, DragPan, MouseWheelZoom } from 'ol/interaction';
 import { platformModifierKeyOnly } from 'ol/events/condition';
 import { nanoid } from 'nanoid';
+import Select from 'ol/interaction/Select';
+import { pointerMove } from 'ol/events/condition';
+import { Style, Text, Stroke, Fill, Circle as CircleStyle } from 'ol/style';
 import { processData } from './util/process';
 import 'ol/ol.css';
-import './css/main.css';
 
 interface Props extends PanelProps<PanelOptions> {}
 interface State {}
@@ -63,6 +65,44 @@ export class MainPanel extends PureComponent<Props, State> {
       this.infoLayer = processData(buffer);
       this.map.addLayer(this.infoLayer);
     }
+
+    const hoverInteraction = new Select({
+      condition: pointerMove,
+      style: function(feature) {
+        const geometry_type = feature.getGeometry()?.getType();
+        if (geometry_type == 'Point') {
+          return new Style({
+            text: new Text({
+              stroke: new Stroke({
+                color: 'rgba(255, 255, 255, 0.9)',
+                width: 2,
+              }),
+              fill: new Fill({ color: '#000' }),
+              font: '12px/1 sans-serif',
+              text: feature.get('time'),
+              offsetY: -16,
+            }),
+            image: new CircleStyle({
+              radius: 9,
+              fill: new Fill({
+                color: 'rgba(255, 255, 255, 0.9)',
+              }),
+              stroke: new Stroke({
+                color: feature.get('color'),
+                width: 2,
+              }),
+            }),
+          });
+        }
+        return new Style({
+          stroke: new Stroke({
+            color: '#49A8DE',
+            width: 2,
+          }),
+        });
+      },
+    });
+    this.map.addInteraction(hoverInteraction);
   }
 
   componentDidUpdate(prevProps: Props) {

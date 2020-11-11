@@ -8,6 +8,11 @@ import { Style, Fill, Stroke, Text, Circle as CircleStyle, Icon } from 'ol/style
 import { FeatureLike } from 'ol/Feature';
 import GeometryType from 'ol/geom/GeometryType';
 import Arrow from '../img/arrow.png';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const processData = (buffer: DataFormat[]) => {
   buffer.reverse();
@@ -17,6 +22,13 @@ export const processData = (buffer: DataFormat[]) => {
   buffer.map(item => {
     const feature = new Feature(new Point([item.longitude, item.latitude]).transform('EPSG:4326', 'EPSG:3857'));
     feature.set('passenger', item.num_passenger.toString());
+    feature.set(
+      'time',
+      dayjs
+        .unix(item.timestamp)
+        .tz('Europe/Athens')
+        .format('DD/MM HH:mm')
+    );
     totalFeatures.push(feature);
 
     linestring.push([item.longitude, item.latitude]);
