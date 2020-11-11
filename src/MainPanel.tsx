@@ -76,7 +76,7 @@ export class MainPanel extends PureComponent<Props, State> {
 
       this.map.getView().animate({
         center: fromLonLat([buffer[0].longitude, buffer[0].latitude]),
-        duration: 2000,
+        duration: 1000,
       });
 
       this.infoLayer = processData(buffer);
