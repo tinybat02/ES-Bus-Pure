@@ -74,12 +74,11 @@ export class MainPanel extends PureComponent<Props, State> {
 
       const { buffer } = this.props.data.series[0].fields[0].values as Buffer;
 
-      if (prevProps.data.series.length == 0) {
-        this.map.getView().animate({
-          center: fromLonLat([buffer[0].longitude, buffer[0].latitude]),
-          duration: 2000,
-        });
-      }
+      this.map.getView().animate({
+        center: fromLonLat([buffer[0].longitude, buffer[0].latitude]),
+        duration: 2000,
+      });
+
       this.infoLayer = processData(buffer);
       this.map.addLayer(this.infoLayer);
     }

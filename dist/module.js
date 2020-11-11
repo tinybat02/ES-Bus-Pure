@@ -78430,14 +78430,10 @@ function (_super) {
       }
 
       var buffer = this.props.data.series[0].fields[0].values.buffer;
-
-      if (prevProps.data.series.length == 0) {
-        this.map.getView().animate({
-          center: Object(ol_proj__WEBPACK_IMPORTED_MODULE_5__["fromLonLat"])([buffer[0].longitude, buffer[0].latitude]),
-          duration: 2000
-        });
-      }
-
+      this.map.getView().animate({
+        center: Object(ol_proj__WEBPACK_IMPORTED_MODULE_5__["fromLonLat"])([buffer[0].longitude, buffer[0].latitude]),
+        duration: 2000
+      });
       this.infoLayer = Object(_util_process__WEBPACK_IMPORTED_MODULE_9__["processData"])(buffer);
       this.map.addLayer(this.infoLayer);
     }
