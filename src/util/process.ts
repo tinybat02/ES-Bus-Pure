@@ -27,7 +27,7 @@ export const processData = (buffer: DataFormat[]) => {
       dayjs
         .unix(item.timestamp)
         .tz('Europe/Athens')
-        .format('DD/MM HH:mm')
+        .format('DD/MM HH:mm') + `/speed: ${item.speed}`
     );
     totalFeatures.push(feature);
 
