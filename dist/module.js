@@ -78634,7 +78634,7 @@ var processData = function processData(buffer) {
   buffer.map(function (item) {
     var feature = new ol_Feature__WEBPACK_IMPORTED_MODULE_1__["default"](new ol_geom_Point__WEBPACK_IMPORTED_MODULE_2__["default"]([item.longitude, item.latitude]).transform('EPSG:4326', 'EPSG:3857'));
     feature.set('passenger', item.num_passenger.toString());
-    feature.set('time', dayjs__WEBPACK_IMPORTED_MODULE_9___default.a.unix(item.timestamp).tz('Europe/Athens').format('DD/MM HH:mm') + ("/speed: " + item.speed));
+    feature.set('time', dayjs__WEBPACK_IMPORTED_MODULE_9___default.a.unix(item.timestamp).tz('Europe/Athens').format('DD/MM HH:mm') + ("/ speed " + item.speed));
     totalFeatures.push(feature);
     linestring.push([item.longitude, item.latitude]);
   });
