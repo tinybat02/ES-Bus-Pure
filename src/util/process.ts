@@ -21,13 +21,13 @@ export const processData = (buffer: DataFormat[]) => {
   const linestring: number[][] = [];
   buffer.map(item => {
     const feature = new Feature(new Point([item.longitude, item.latitude]).transform('EPSG:4326', 'EPSG:3857'));
-    feature.set('passenger', item.num_passenger.toString());
+    feature.set('passenger', `${item.num_passenger || 0}`);
     feature.set(
       'time',
       dayjs
         .unix(item.timestamp)
         .tz('Europe/Athens')
-        .format('DD/MM HH:mm') + `/ speed ${item.speed}`
+        .format('DD/MM HH:mm') + `/ speed ${item.speed || 0}`
     );
     totalFeatures.push(feature);
 
